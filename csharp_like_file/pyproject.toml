@@ -1,12 +1,21 @@
-[build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = "csharp_like_file"
 version = "0.0.1"
 dependencies = [
 ]
+description = "System.IO.File-like in Python."
+authors = [
+    { name = "yueyinqiu", email = "yueyinqiu@outlook.com"}
+]
+name = "csharp_like_file"
+license = { text = "MIT License" }
+keywords = ["file"]
+
+[project.urls]
+Repository = "https://github.com/yueyinqiu/csharp_like_file.git"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 include = ["csfile"]
