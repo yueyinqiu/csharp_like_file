@@ -5,14 +5,21 @@ import typing as _typing
 def append_all_lines(path: str | _os.PathLike[str],
                      contents: _typing.Iterable[str],
                      encoding: str = "utf8") -> None:
-    with open(path, "a", encoding=encoding) as file:
-        file.writelines(contents)
+    with open(path, "a", encoding=encoding, newline=None) as file:
+        iterator = iter(contents)
+
+        line = next(iterator)
+        file.write(line)
+
+        for line in iterator:
+            file.write("\n")
+            file.write(line)
 
 
 def append_all_text(path: str | _os.PathLike[str],
                     contents: str,
                     encoding: str = "utf8") -> None:
-    with open(path, "a", encoding=encoding) as file:
+    with open(path, "a", encoding=encoding, newline="") as file:
         file.write(contents)
 
 
@@ -45,23 +52,14 @@ def read_all_bytes(path: str | _os.PathLike[str]) -> bytes:
 
 def read_all_lines(path: str | _os.PathLike[str],
                    encoding: str = "utf8") -> list[str]:
-    with open(path, "r", encoding=encoding) as file:
-        return file.readlines()
+    with open(path, "r", encoding=encoding, newline=None) as file:
+        return [line.rstrip("\n") for line in file.readlines()]
 
 
 def read_all_text(path: str | _os.PathLike[str],
                   encoding: str = "utf8") -> str:
-    with open(path, "r", encoding=encoding) as file:
+    with open(path, "r", encoding=encoding, newline="") as file:
         return file.read()
-
-
-def read_lines(path: str | _os.PathLike[str],
-               encoding: str = "utf8") -> _typing.Iterable[str]:
-    with open(path, "r", encoding=encoding) as file:
-        for line in file.readline():
-            if line is None:
-                break
-            yield line
 
 
 def write_all_bytes(path: str | _os.PathLike[str],
@@ -73,12 +71,19 @@ def write_all_bytes(path: str | _os.PathLike[str],
 def write_all_lines(path: str | _os.PathLike[str],
                     contents: _typing.Iterable[str],
                     encoding: str = "utf8") -> None:
-    with open(path, "w", encoding=encoding) as file:
-        file.writelines(contents)
+    with open(path, "w", encoding=encoding, newline=None) as file:
+        iterator = iter(contents)
+
+        line = next(iterator)
+        file.write(line)
+
+        for line in iterator:
+            file.write("\n")
+            file.write(line)
 
 
 def write_all_text(path: str | _os.PathLike[str],
                    contents: str,
                    encoding: str = "utf8") -> None:
-    with open(path, "w", encoding=encoding) as file:
+    with open(path, "w", encoding=encoding, newline="") as file:
         file.write(contents)
