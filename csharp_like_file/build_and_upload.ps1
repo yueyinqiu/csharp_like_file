@@ -9,6 +9,9 @@ pip install --upgrade setuptools build twine
 
 Copy-Item -Path "./csfile/__init__.py" -Destination "./csfile/__init__.pyi"
 Copy-Item -Path "./csdir/__init__.py" -Destination "./csdir/__init__.pyi"
+
+New-Item -Force -Path "./dist" -ItemType Directory
+New-Item -Force -Path "./csharp_like_file.egg-info" -ItemType Directory
 Remove-Item "./dist" -Recurse
 Remove-Item "./csharp_like_file.egg-info" -Recurse
 
