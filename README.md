@@ -1,13 +1,29 @@
-I really appreciate the design of `System.IO.File` and `System.IO.Directory`, which provides many static methods to access the file system easily.
+# csharp-like-file
 
-This project is mainly to meet my use so I didn't write it so seriously. If there are any bugs or if you'd like some new features, please feel free to contact me in the issues, although it might be many years after the last commit. I believe I would give a response if I'm still alive.
+If you've ever used C# and found yourself missing the sheer convenience of `System.IO.File` and `System.IO.Directory`, you're not alone. I've always loved how those static methods make file operations feel so effortless, so I decided to bring that same "vibe" to Python.
 
-An example:
+I originally built this just to scratch my own itch, so it's not meant to be some over-engineered masterpiece. It's just a straightforward tool to help you get things done. If you run into a bug or realize I missed a standard C# method you can't live without, just give me a shout in the issues!
+
+## Quick Example
 
 ```python
 import csdir
 import csfile
 
-directory = csdir.create_directory("test")  # It's a pathlib.Path
-csfile.write_all_text(directory / "test.txt", "Hello World")
+directory = csdir.create_directory("test_folder")  # This returns a pathlib.Path object
+csfile.write_all_text(directory / "hello.txt", "Hello World")
 ```
+
+## Differences from the C# Version
+
+There are a couple of small "cultural" differences between Python and C# that you should know about.
+
+### Encoding (`encoding`)
+
+I've set the default text encoding to UTF-8. I'm not a big fan of C#'s `Encoding.Default` (which can be a bit unpredictable depending on your OS). You can always pass your own encoding parameter if you need something specific.
+
+### Path Resolution (`lexical`)
+
+In C#, a path like `a/b/..` is usually treated as a pure string operation. In that world, it always simplifies to `a`. However, Python here is a bit smarter: if `b` is actually a symlink pointing somewhere else, `..` should take you to the real parent of that target.
+
+I personally think the Python way is more reliable, so that's the default here. But if you really want that classic C# behavior, just set the `lexical` parameter to `True`. It'll ignore the file system and just crunch the path strings for you.

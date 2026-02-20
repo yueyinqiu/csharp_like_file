@@ -1,0 +1,19 @@
+[project]
+name = "csharp_like_file"
+version = "0.0.7"
+description = "System.IO.File-like in Python."
+readme = "README.md"
+authors = [
+    { name = "yueyinqiu", email = "yueyinqiu@outlook.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+license = { text = "MIT License" }
+keywords = ["file"]
+
+[build-system]
+requires = ["uv_build>=0.9.28,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = ["csdir", "csfile"]
