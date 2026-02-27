@@ -22,8 +22,8 @@ There are a couple of small "cultural" differences between Python and C# that yo
 
 I've set the default text encoding to UTF-8. I'm not a big fan of C#'s `Encoding.Default` (which can be a bit unpredictable depending on your OS). You can always pass your own encoding parameter if you need something specific.
 
-### Path Resolution (`lexical`)
+### Path Resolution
 
-In C#, a path like `a/b/..` is usually treated as a pure string operation. In that world, it always simplifies to `a`. However, Python here is a bit smarter: if `b` is actually a symlink pointing somewhere else, `..` should take you to the real parent of that target.
+In C#, a path like `a/b/..` is usually treated as a pure string operation. In that world, it always simplifies to `a`. But sometimes, if `b` is actually a symlink pointing somewhere else, you may expect that `..` should take you to the real parent of that target.
 
-I personally think the Python way is more reliable, so that's the default here. But if you really want that classic C# behavior, just set the `lexical` parameter to `True`. It'll ignore the file system and just crunch the path strings for you.
+However, the meaning of `delete` and `exist` clear, we kept the C# behavior. Therefore, when you call `delete` on a symlink file, it will certainly removing the symlink itself, rather than its destination. If you want to resolve the symlinks, call `pathlib.Path.resolve` or `os.path.realpath` before passing the paths into this package.
